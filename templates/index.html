@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ENGDIV</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <div class="container hide_print">
+        <header>
+        <h1>ENGDIV</h1>
+        </header>
+    </div>
+
+<div class="Form hide_print">
+        <form method="post" action="{{url_for('register')}}">
+            <textarea name="sentence" placeholder="英文を入力して、変換ボタンを押してください。品詞のルビが振られた本文と単語リストが出力されます。翻訳ボタンを押せば、追加で、ルビが単語の翻訳となった文章と、翻訳付きの単語リストが出力されます。">{{sentence}}</textarea>
+            <input type="submit" value="変換">
+            <div class="check"><label><input type="checkbox" name="transAble" value="1">翻訳付きの文章、リストを作成する（作成に時間がかかります）</label></div>
+        </form>
+</div>
+
+ <div class="wrapper">
+
+  <ul class="tab hide_print">
+    <li><a href="#result_color">結果（色付き）</a></li>
+    <li><a href="#result_black">結果（単色）</a></li>
+    <li><a href="#result_trans">結果（翻訳）</a></li>
+    <li><a href="#question">リスト（翻訳無し）</a></li>
+    <li><a href="#word">リスト（翻訳有り）</a></li>
+    <li><a href="#sentence">本文</a></li>
+  </ul>
+
+    <div id="result_color" class="area">
+      <h2>結果（色付き）</h2>
+        <div class="text_layout">{{ Mark_text | safe}}</div>
+        <form class="hide_print" >
+            <input type="button" value="印刷" onclick="window.print();">
+        </form>
+    <!--/area--></div>
+
+    <div id="result_black" class="area">
+      <h2>結果（単色）</h2>
+      <div class="text_layout">{{ Mark_text_simple | safe}}</div>
+    <!--/area-->
+            <form class="hide_print" >
+                <input type="button" value="印刷" onclick="window.print();">
+            </form>
+    </div>
+
+     <div id="result_trans" class="area">
+      <h2>結果（翻訳ルビ）</h2>
+      <div class="text_layout">{{ Trans_text | safe}}</div>
+    <!--/area-->
+            <form class="hide_print" >
+                <input type="button" value="印刷" onclick="window.print();">
+            </form>
+    </div>
+
+
+
+    <div id="question" class="area">
+      <h2>リスト（翻訳無し）</h2>
+          <div class="list">
+            <table border="1">
+            <tr>
+                <th>英単語</th>
+                <th>品詞</th>
+                <th>------意味------</th>
+            </tr>
+            {{ en_question | safe}}
+            </table>
+          </div>
+        <form class="hide_print" >
+            <input type="button" value="印刷" onclick="window.print();">
+        </form>
+    <!--/area--></div>
+
+
+       <div id="word" class="area">
+      <h2>リスト（翻訳有り）</h2>
+           <div class="list">
+               <table border="1">
+               <tr>
+                    <th>英単語</th>
+                    <th>品詞</th>
+                    <th>意味</th>
+                </tr>
+            {{ en_words | safe}}
+                </table>
+           </div>
+           <form class="hide_print" >
+            <input type="button" value="印刷" onclick="window.print();">
+           </form>
+    <!--/area--></div>
+
+　　<div id="sentence" class="area">
+      <h2>本文</h2>
+      <div class="text_layout"><span class="font">{{sentence}}</span></div>
+    <!--/area-->
+         <form class="hide_print" >
+            <input type="button" value="印刷" onclick="window.print();">
+        </form>
+   </div>
+
+<!--wrapper--></div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='../static/script.js') }}"></script>
+
+
+</body>
+</html>
